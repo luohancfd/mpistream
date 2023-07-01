@@ -1,4 +1,4 @@
-CXX=mpiicc
+CXX=mpicxx
 
 OBJS=test.o mpistream.o
 
@@ -9,4 +9,4 @@ test.x: $(OBJS)
 	$(CXX) $(CFLAGS) $(CPPFLAGS) -c $<
 
 clean:
-	rm -rf $(OBJS)
+	rm -rf $(OBJS) test.x
