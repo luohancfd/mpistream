@@ -1,0 +1,22 @@
+name: build
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        mpi: [ 'mpich', 'openmpi', 'intelmpi']
+    name: ${{ matrix.mpi }} example
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup MPI
+        uses: mpi4py/setup-mpi@v1
+        with:
+          mpi: ${{ matrix.mpi }}
+      - run: make
+      - run: mpiexec -n 4 ./test.x
